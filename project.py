@@ -1,4 +1,7 @@
 #hello welcome to my script this script important
+from scapy.layers.inet import ICMP
+from scapy.sendrecv import sniff
+
 print("hello gay share script with your friends")
 print("++++++++++++++++++++++++++++++++++++++++")
 print("++++++++++++++++++++++++++++++++++++++++")
@@ -25,10 +28,17 @@ print("7- scan ports on linux")
 print("8- sniffer network http")
 print("9- arp spoofing")
 print("10- keylogger ")
+print("11- encrypt massage cypher 1 ")
+print("12- decrypt massage cypher 1")
+print("13- encrypt monoalphabetic cipher :")
+print("14- decrypt monoalphabetic cipher :")
+print("15- geolocation ip :")
+print("16- sniffing ports :")
 print("____________________________")
 print("|000- small virus python :|")
 print("___________________________")
 print("*******************************************************************")
+from scapy.all import *
 def menu():
        choise=str(input("enter your choise:"))
        if choise == "1" :
@@ -192,4 +202,170 @@ def menu():
                                  c=input("enter to exit:")   
                    timer()
                    l.join()
+       elif choise == "11":
+           def encrypt(txt,key):
+               cipher_list= []
+               for l in txt:
+                   posistion = ord(l)
+                   new_litter= chr(posistion+key)
+                   cipher_list.append(new_litter)
+               t=''.join(cipher_list)
+               print(t)
+           txt=list(input("enter word to encrypt:"))
+           key=int(input("enter key to encrypt:"))
+           encrypt(txt,key)
+       elif choise == "12":
+           def encrypt(txt,key):
+               cipher_list= []
+               for l in txt:
+                   posistion = ord(l)
+                   new_litter= chr(posistion-key)
+                   cipher_list.append(new_litter)
+               t=''.join(cipher_list)
+               print(t)
+
+           txt = list(input("enter word to encrypt:"))
+           key = int(input("enter key to encrypt:"))
+           encrypt(txt, key)
+       elif choise == "13":
+           print("______________________________________",
+                 "_____________________________________",
+                 "__________________________________",
+                 "this script coding by zoala",
+                 "___________________________")
+
+           welcome = input("whats your name ?:")
+           print("welcome", welcome)
+
+           for i in welcome:
+               print(i)
+
+           letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+                      't', 'w', 'x', 'u', 'v', 'y', 'z']
+
+           key = ['r', 'w', 'e', 'q', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
+                  'c', 'x', 'v', 'b', 'n', 'm']
+
+           text = str(input("enter the word to encrypt :"))
+
+           cipher = []
+           for l in text:
+               key_number = letters.index(l)
+               new_letters = key[key_number]
+               cipher.append(new_letters)
+           encrypt_text = ''.join(cipher)
+
+           print(encrypt_text)
+
+       elif choise == "14":
+           print("______________________________________",
+                 "_____________________________________",
+                 "__________________________________",
+                 "this script coding by zoala",
+                 "___________________________")
+
+           welcome = input("whats your name ?:")
+           print("welcome", welcome)
+
+           for i in welcome:
+               print(i)
+
+           letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+                      't', 'w', 'x', 'u', 'v', 'y', 'z']
+
+           key = ['r', 'w', 'e', 'q', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
+                  'c', 'x', 'v', 'b', 'n', 'm']
+
+           text = str(input("enter the word to encrypt :"))
+
+           cipher = []
+           for l in text:
+               key_number = key.index(l)
+               new_letters = letters[key_number]
+               cipher.append(new_letters)
+           encrypt_text = ''.join(cipher)
+
+           print(encrypt_text)
+
+       elif choise == "15":
+           import os
+           os.system("python -m pip install python-geoip-geolite2")
+           os.system("python3 -m pip install python-geoip-geolite2")
+           os.system("python -m pip install python-geoip-python3")
+           os.system("python3 -m pip install python-geoip-python3")
+           from geoip import geolite2
+           ip = str(input("enter ip :"))
+           locator =geolite2.lookup(ip)
+           print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+           print(locator)
+           print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+       elif choise == "16":
+           import os
+           os.system("python -m pip install scapy")
+           os.system("python3 -m pip install scapy")
+           #must install software winpcap on windows to work
+           #https://www.winpcap.org/install/default.htm
+           #from scapy.all import *
+           def analyzer(pkt):
+               if pkt.haslayer(TCP):
+                   print("................tcp packer >>>")
+                   src_ip = pkt[IP].src
+                   dst_ip = pkt[IP].dst
+                   mac_src = pkt.src
+                   mac_dst = pkt.dst
+                   src_port = pkt.sport
+                   dst_port = pkt.dport
+                   print("SRC-IP : " +src_ip)
+                   print("DST-IP :" +dst_ip)
+                   print("SRC-MAC : " + mac_src)
+                   print("DST-MAC :" + mac_dst)
+                   print("SRC-PORT :"+ str(src_port))
+                   print("DST-PORT :"+ str(dst_port))
+                   print("__________________________________________________________________________________________")
+                   if pkt.haslayer(RAW):
+                       print(pkt[RAW].load)
+                   print("*****************************************************************************************8")
+                   print("*******************************************************************************************")
+               if pkt.haslayer(UDP):
+                   print("__________________________________________________________________________________________")
+                   print("_____________________________________udp packet >>>")
+                   src_ip = pkt[IP].src
+                   dst_ip = pkt[IP].dst
+                   mac_src = pkt.src
+                   mac_dst = pkt.dst
+                   src_port = pkt.sport
+                   dst_port = pkt.dport
+                   print("SRC-IP : " + src_ip)
+                   print("DST-IP :" + dst_ip)
+                   print("SRC-MAC : " + mac_src)
+                   print("DST-MAC :" + mac_dst)
+                   print("SRC-PORT :" + str(src_port))
+                   print("DST-PORT :" + str(dst_port))
+                   print("___________________________________________________________________________________________")
+                   if pkt.haslayer(RAW):
+                       print(pkt[RAW].load)
+                   print("*****************************************************************************************8")
+                   print("*******************************************************************************************")
+               try :
+                   src_ip = pkt[IP].src
+                   dst_ip = pkt[IP].dst
+                   mac_src = pkt.src
+                   mac_dst = pkt.dst
+                   if pkt.haslayer(ICMP):
+                       print(
+                           "__________________________________________________________________________________________")
+                       print("_____________________________________ICMP packet >>>")
+
+                       print("SRC-IP : " + src_ip)
+                       print("DST-IP :" + dst_ip)
+                       print("SRC-MAC : " + mac_src)
+                       print("DST-MAC :" + mac_dst)
+                       print("___________________________________________________________________________________________")
+                   print(pkt)
+                   print("packet >>>||||")
+               except :
+                      pass
+               print("********** sniffint start ***********")
+               sniff(iface="eth0", prn=analyzer)
+
 menu()
